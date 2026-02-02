@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPERVIVENCIA ACADÉMICA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            color: #d1d1d1;
+            font-family: 'Special Elite', serif;
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grunge-container {
+            background: #e2d1b0;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            color: #1a1a1a;
+            border: 3px solid #000;
+            box-shadow: 15px 15px 0px #000;
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .marker-font {
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        .tape {
+            background: rgba(212, 185, 126, 0.6);
+            width: 120px;
+            height: 40px;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border-left: 2px dashed rgba(0,0,0,0.2);
+            border-right: 2px dashed rgba(0,0,0,0.2);
+            z-index: 20;
+        }
+
+        .input-grunge {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-bottom: 3px solid #333;
+            padding: 12px;
+            font-family: 'Special Elite', serif;
+            font-size: 1.5rem;
+            color: #000;
+            width: 100%;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .label-grunge {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+            margin: 15px 0;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            background: #333;
+            border: 2px solid #000;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 35px;
+            width: 25px;
+            background: #8b0000;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -12px;
+            border: 3px solid #000;
+            box-shadow: 3px 3px 0px #000;
+        }
+
+        .btn-grunge {
+            background: #222;
+            color: #fff;
+            padding: 12px 20px;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.1rem;
+            box-shadow: 5px 5px 0px #000;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-grunge:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        @media (max-width: 640px) {
+            .marker-font.text-7xl { font-size: 3.2rem; }
+            .input-grunge { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="p-4 md:p-10 grunge-container">
+        <div class="tape"></div>
+
+        <header class="text-center mb-8">
+            <h1 class="marker-font text-5xl md:text-7xl border-b-4 border-black inline-block mb-2 transform -rotate-1">SUPERVIVENCIA</h1>
+            <p class="text-sm font-bold text-gray-800 uppercase italic">Registro Táctico Académico // Escala 10 pts</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+
+            <!-- ENTRADAS -->
+            <div class="space-y-6">
+                <div class="bg-black/5 p-4 border-l-4 border-black">
+                    <h3 class="font-black uppercase text-md mb-4 underline">Misiones Cumplidas (Logs)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label-grunge">Trimestre 1</label>
+                            <input type="number" id="t1" value="8.14" step="0.01" class="input-grunge">
+                        </div>
+                        <div>
+                            <label class="label-grunge">Trimestre 2</label>
+                            <input type="number" id="t2" value="8.67" step="0.01" class="input-grunge">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-900/5 p-4 border-l-4 border-red-900">
+                    <h3 class="font-black uppercase text-md mb-4 underline">Misión Actual (Fase 3)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label-grunge">Puntos de Campo (70%)</label>
+                            <input type="number" id="t3_base" placeholder="Nota sobre 10" step="0.01" class="input-grunge">
+                        </div>
+                        <div class="pt-2">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="label-grunge">Impacto Examen (30%)</label>
+                                <span id="examLabel" class="marker-font text-4xl text-red-900">7.0</span>
+                            </div>
+                            <input type="range" id="examSim" min="0" max="10" step="0.1" value="7" oninput="updateAll()">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="resetFields()" class="btn-grunge">Resetear Misión</button>
+            </div>
+
+            <!-- RESULTADOS -->
+            <div class="flex flex-col space-y-6">
+                <div class="bg-white/50 p-6 border-4 border-black text-center shadow-inner">
+                    <p class="text-xs font-black uppercase mb-2">Estado de Supervivencia</p>
+                    <div id="finalGrade" class="marker-font text-7xl md:text-8xl my-2 leading-none">--</div>
+                    <div id="statusText" class="text-xl font-black uppercase mt-2">---</div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-black/10 p-3 text-center border-2 border-black">
+                        <p class="text-[10px] uppercase font-black">Total Fase 3</p>
+                        <div id="t3Result" class="text-2xl font-bold">--</div>
+                    </div>
+                    <div class="bg-black/10 p-3 text-center border-2 border-black">
+                        <p class="text-[10px] uppercase font-black">Meta Crítica</p>
+                        <div id="neededExam" class="text-2xl font-bold">--</div>
+                    </div>
+                </div>
+
+                <!-- ZONA DE PELIGRO -->
+                <div id="dangerBox" class="p-5 bg-red-900 border-4 border-black text-white text-center transform rotate-1">
+                    <h4 class="font-black uppercase text-xs mb-1">⚠️ ALERTA: SUPLETORIO</h4>
+                    <p class="text-[10px] mb-2 opacity-90">Nota mínima necesaria en examen:</p>
+                    <div id="dangerValue" class="marker-font text-5xl">--</div>
+                    <div class="mt-3 h-4 bg-black/30 border-2 border-black p-0.5">
+                        <div id="dangerBar" class="h-full bg-white transition-all duration-700" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-10 text-center font-bold text-[10px] border-t border-black pt-4">
+            <p>ANÁLISIS DE RIESGO ACADÉMICO // CLASIFICADO</p>
+        </footer>
+    </div>
+
+    <script>
+        const MIN_TO_PASS = 7.0;
+
+        function updateAll() {
+            const t1 = parseFloat(document.getElementById('t1').value) || 0;
+            const t2 = parseFloat(document.getElementById('t2').value) || 0;
+            const t3Base = parseFloat(document.getElementById('t3_base').value) || 0;
+            const examSim = parseFloat(document.getElementById('examSim').value);
+
+            document.getElementById('examLabel').innerText = examSim.toFixed(1);
+
+            // Calculo Trimestre 3 (70% + 30%)
+            const t3Final = (t3Base * 0.70) + (examSim * 0.30);
+            document.getElementById('t3Result').innerText = t3Final.toFixed(2);
+
+            // Calculo Promedio Final Anual
+            const finalAvg = (t1 + t2 + t3Final) / 3;
+            const finalDisplay = document.getElementById('finalGrade');
+            finalDisplay.innerText = finalAvg.toFixed(2);
+
+            // Nota necesaria para llegar a 7.00
+            const examNeeded = (MIN_TO_PASS * 3 - t1 - t2 - (t3Base * 0.7)) / 0.3;
+
+            const statusText = document.getElementById('statusText');
+            const neededDisplay = document.getElementById('neededExam');
+            const dangerValue = document.getElementById('dangerValue');
+            const dangerBar = document.getElementById('dangerBar');
+
+            if (finalAvg >= MIN_TO_PASS) {
+                finalDisplay.style.color = "#004d00";
+                statusText.innerText = "¡A SALVO!";
+                statusText.style.color = "#004d00";
+            } else {
+                finalDisplay.style.color = "#7f0000";
+                statusText.innerText = "PELIGRO: SUPLETORIO";
+                statusText.style.color = "#7f0000";
+            }
+
+            if (examNeeded <= 0) {
+                neededDisplay.innerText = "0.00";
+                neededDisplay.style.color = "#004d00";
+            } else if (examNeeded > 10) {
+                neededDisplay.innerText = "FALLIDO";
+                neededDisplay.style.color = "#7f0000";
+            } else {
+                neededDisplay.innerText = examNeeded.toFixed(2);
+                neededDisplay.style.color = "#000";
+            }
+
+            const valPeligro = examNeeded > 0 ? examNeeded.toFixed(2) : "0.00";
+            dangerValue.innerText = valPeligro;
+
+            let percent = (examNeeded / 10) * 100;
+            dangerBar.style.width = Math.min(Math.max(percent, 0), 100) + "%";
+        }
+
+        function resetFields() {
+            document.getElementById('t1').value = '8.14';
+            document.getElementById('t2').value = '8.67';
+            document.getElementById('t3_base').value = '';
+            document.getElementById('examSim').value = 7.0;
+            updateAll();
+        }
+
+        ['t1', 't2', 't3_base'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateAll);
+        });
+
+        window.onload = updateAll;
+    </script>
+</body>
+</html>
